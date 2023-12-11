@@ -1,13 +1,11 @@
-import {Schema, model, Model} from 'mongoose';
+import {Schema} from 'mongoose';
 export interface IActor {
-    id: string,
-    name: string,
+    firstname: string,
     lastname: string,
 }
 
 const actorsSchema = new Schema<IActor>({
-    id: {type: String},
-    name: {type: String},
+    firstname: {type: String},
     lastname: {type: String},
 })
 

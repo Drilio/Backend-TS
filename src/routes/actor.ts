@@ -8,5 +8,11 @@ const router = express.Router();
 router.post('/', actorCtrl.CreateActors);
 //@ts-ignore
 router.get('/', actorCtrl.GetAllActors);
+// @ts-ignore
+router.get('/:id', actorCtrl.GetOneActor);
+
+router.delete('/:id', actorCtrl.DeleteActor);
+
+router.put('/:id', actorCtrl.modifyActor)
 
 export default router
