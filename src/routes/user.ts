@@ -7,4 +7,8 @@ router.post('/signup', userCtrl.signup);
 
 router.post('/local', userCtrl.login);
 
+router.get('/me', userCtrl.me)
+
+router.post('/change-password', userCtrl.changePassword)
+
 export default router

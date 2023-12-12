@@ -8,7 +8,7 @@ const auth = (req:Request, res:Response , next:NextFunction) => {
     const token = req.headers.authorization!.split(' ')[1];
     console.log(token)
         const decodedToken = jwt.verify(token, process.env.AUTH_TOKEN_KEY!) as IUser
-        const userId = decodedToken.id
+        const userId = decodedToken._id
         req.auth = {
         userId:userId
         }
