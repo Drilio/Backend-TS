@@ -2,6 +2,7 @@ import express, {Router} from 'express';
 import actorRoutes from './routes/actor';
 import movieRoutes from './routes/movie';
 import userRoutes from './routes/user';
+import auth from './middleware/auth'
 import mongoose from "mongoose";
 import 'dotenv/config';
 const app = express();
@@ -15,8 +16,8 @@ app.use(express.json());
 
 const apiRouter = Router()
 
-apiRouter.use('/actors', actorRoutes);
-apiRouter.use('/movies', movieRoutes);
+apiRouter.use('/actors', auth, actorRoutes);
+apiRouter.use('/movies', auth, movieRoutes);
 apiRouter.use('/auth', userRoutes)
 
 app.use('/api', apiRouter)

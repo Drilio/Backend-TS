@@ -1,6 +1,5 @@
 import * as express from 'express';
 import actorCtrl from "../controllers/actor";
-import actor from "../controllers/actor";
 
 const router = express.Router();
 
