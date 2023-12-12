@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {Router} from 'express';
 import actorRoutes from './routes/actor';
 import movieRoutes from './routes/movie';
 import userRoutes from './routes/user';
@@ -13,9 +13,13 @@ mongoose.connect(process.env.MONGODB_URL)
 
 app.use(express.json());
 
-app.use('/api/actors', actorRoutes);
-app.use('/api/movies', movieRoutes);
-app.use('/api/auth', userRoutes)
+const apiRouter = Router()
+
+apiRouter.use('/actors', actorRoutes);
+apiRouter.use('/movies', movieRoutes);
+apiRouter.use('/auth', userRoutes)
+
+app.use('/api', apiRouter)
 app.get('/', (req, res) => {
   res.send('Hello world!');
 });
