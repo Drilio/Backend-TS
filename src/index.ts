@@ -1,6 +1,7 @@
 import express from 'express';
 import actorRoutes from './routes/actor';
-import movieRoutes from './routes/movie'
+import movieRoutes from './routes/movie';
+import userRoutes from './routes/user';
 import mongoose from "mongoose";
 import 'dotenv/config';
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/actors', actorRoutes);
 app.use('/api/movies', movieRoutes);
+app.use('/api/auth', userRoutes)
 app.get('/', (req, res) => {
   res.send('Hello world!');
 });

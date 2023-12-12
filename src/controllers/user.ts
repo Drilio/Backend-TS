@@ -71,6 +71,7 @@ const User = mongoose.model('user',usersSchema);
 
 const controller = {
     signup,
+    login,
 }
 
 export default controller;
