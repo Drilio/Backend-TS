@@ -2,10 +2,11 @@ import express from 'express';
 import actorRoutes from './routes/actor';
 import movieRoutes from './routes/movie'
 import mongoose from "mongoose";
-
+import 'dotenv/config';
 const app = express();
 
-mongoose.connect("mongodb+srv://royantoine93:kfX8ooygAo4601V3@toto.elpypb7.mongodb.net/?retryWrites=true&w=majority")
+// @ts-ignore
+mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch((error) => console.log('Connexion à MongoDB échouée !', error));
 
