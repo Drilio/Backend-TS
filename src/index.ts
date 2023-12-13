@@ -5,14 +5,16 @@ import userRoutes from './routes/user';
 import auth from './middleware/auth'
 import mongoose from "mongoose";
 import 'dotenv/config';
-const app = express();
+import cors from 'cors';
 
+const app = express();
 // @ts-ignore
 mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch((error) => console.log('Connexion à MongoDB échouée !', error));
 
 app.use(express.json());
+app.use(cors());
 
 const apiRouter = Router()
 

@@ -11,4 +11,6 @@ router.get('/me', userCtrl.me)
 
 router.post('/change-password', userCtrl.changePassword)
 
+router.post('/isconnect', userCtrl.isconnect)
+
 export default router

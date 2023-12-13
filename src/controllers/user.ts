@@ -34,7 +34,7 @@ const User = mongoose.model('user',usersSchema);
         })
 }catch(error){
         console.error(error);
-        return res.status(500).json({ error: `Internal Error` });
+        return res.status(500).json({ error: ` Internal Error` });
     }
  }
 
@@ -44,15 +44,16 @@ const login = async (req: Request, res: Response) =>{
         const user = await User.findOne({mail: req.body.mail})
        console.log('user :', user);
         if(user === null){
-            res.status(401).json({ message: 'Paire identifiant / mot de passe incorecte' });
+            return res.status(401).json({ message: 'Paire identifiant / mot de passe incorecte' });
         }else{
             console.log('body data', req.body.password)
             const passwordCorrect = await compare(req.body.password, user.password);
+            console.log("passwordCorrect",passwordCorrect)
             if(passwordCorrect){
                 const jwtOptions = {
                     expiresIn: '24h',
                 };
-                console.log(user);
+                console.log('user after find user', user);
                 const authToken = jwt.sign(user.toObject(), process.env.AUTH_TOKEN_KEY!, jwtOptions);
                 return res.status(200).json({
                     success: true,
@@ -111,17 +112,22 @@ try{
     const filter = {mail: userMail}
 const connectedUser = await User.findOne(filter);
     if(connectedUser){
+        console.log('password', req.body.password);
         console.log(req.body, connectedUser.password)
         const match = await compare(req.body.currentPassword ,connectedUser.password)
         console.log(connectedUser);
         console.log(match);
         if(req.body.password === req.body.passwordConfirmation && match){
-            const user = await User.findOneAndUpdate(filter, {password: req.body.password},);
+            const newPassword= await hash(req.body.password, 10)
+            const user = await User.findOneAndUpdate(filter, {password: newPassword},);
+            console.log('mdp changé')
             res.status(200).json({message:'votre mdp à bien changé !'})
         }else{
+            console.log('invalid informations')
             res.status(401).json({ message: 'Invalid informations' });
         }
     }else{
+        console.log('user does not exist')
         res.status(401).json({ message: 'User does not exist' });
     }
 
@@ -131,11 +137,29 @@ const connectedUser = await User.findOne(filter);
 }
 }
 
+const isconnect = async (req:Request,res:Response,next:NextFunction) => {
+     try{
+         console.log('isconnect test')
+         const authorization = req.headers.authorization!.split(' ')[1];
+         const decoded = jwt.decode(authorization) as IUser
+         const userMail = decoded.mail
+         const filter = {mail: userMail}
+         const connectedUser = await User.findOne(filter);
+         if(connectedUser === null){
+             res.status(401).json({ message: 'l\'utilisateur n\'existe pas' });
+         }else{
+             res.status(200).json({ message: 'Token valide' });
+         }
+     }catch (error) {
+         res.status(200).json({ message: 'Token valide' });
+     }
+}
 const controller = {
     signup,
     login,
     me,
-    changePassword
+    changePassword,
+    isconnect
 }
 
 export default controller;
