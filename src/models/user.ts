@@ -4,14 +4,12 @@ import {Schema} from 'mongoose';
 export interface IUser{
     _id:string,
     password: string,
-    name: string,
-    mail: string,
+    login: string,
 }
 
 const usersSchema = new Schema<IUser>({
     password: {type: String},
-    name: {type: String},
-    mail: {type: String}
+    login: {type: String}
 })
 
 export default  usersSchema
