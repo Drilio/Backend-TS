@@ -41,6 +41,8 @@ const Auth = mongoose.model('user',usersSchema);
 const login = async (req: Request, res: Response) =>{
     console.log(req.body);
     try{
+        if(req.body){
+
         const user = await Auth.findOne({login: req.body.login})
        console.log('user :', user);
         if(user === null){
@@ -63,6 +65,9 @@ const login = async (req: Request, res: Response) =>{
                 console.log('test')
                 return res.status(400).json({error: 'Invalid Credentials'});
             }
+        }
+        }else{
+            return res.status(400).json({error: 'body is empty'});
         }
     }catch (error){
         console.error(error);

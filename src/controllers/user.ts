@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 const Auth = mongoose.model('user',usersSchema);
 
 const isconnect = async (req:Request,res:Response,next:NextFunction) => {
+    console.log("isconnect reach")
     try{
         try{
             const authorization = req.headers.authorization!.split(' ')[1];

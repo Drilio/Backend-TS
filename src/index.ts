@@ -1,6 +1,7 @@
 import express, {Router} from 'express';
 import authRoutes from './routes/auth';
 import userRoutes from './routes/user';
+import gamesRoutes from './routes/games';
 import mongoose from "mongoose";
 import 'dotenv/config';
 import cors from 'cors';
@@ -18,7 +19,7 @@ const apiRouter = Router()
 
 apiRouter.use('/auth', authRoutes)
 apiRouter.use('/users', userRoutes)
-
+apiRouter.use('/games', gamesRoutes)
 app.use('', apiRouter)
 
 app.listen(3012, () => {
