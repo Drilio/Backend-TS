@@ -3,7 +3,8 @@ import userCtrl from '../controllers/user';
 const router = express.Router();
 
 
-router.get('/check-auth', userCtrl.isconnect);
-
+router.post('/add', userCtrl.signup);
+router.post('/connect', userCtrl.login);
+router.post('/isconnect', userCtrl.isconnect)
 
 export default router

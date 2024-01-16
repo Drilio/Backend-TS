@@ -1,7 +1,6 @@
 import express, {Router} from 'express';
-import authRoutes from './routes/auth';
 import userRoutes from './routes/user';
-import gamesRoutes from './routes/games';
+import auth from './middleware/auth'
 import mongoose from "mongoose";
 import 'dotenv/config';
 import cors from 'cors';
@@ -17,9 +16,8 @@ app.use(cors());
 
 const apiRouter = Router()
 
-apiRouter.use('/auth', authRoutes)
-apiRouter.use('/users', userRoutes)
-apiRouter.use('/games', gamesRoutes)
+apiRouter.use('/auth', userRoutes)
+
 app.use('', apiRouter)
 
 app.listen(3012, () => {
