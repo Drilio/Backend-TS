@@ -1,6 +1,6 @@
 import express, {Router} from 'express';
+import authRoutes from './routes/auth';
 import userRoutes from './routes/user';
-import auth from './middleware/auth'
 import mongoose from "mongoose";
 import 'dotenv/config';
 import cors from 'cors';
@@ -16,7 +16,8 @@ app.use(cors());
 
 const apiRouter = Router()
 
-apiRouter.use('/auth', userRoutes)
+apiRouter.use('/auth', authRoutes)
+apiRouter.use('/users', userRoutes)
 
 app.use('', apiRouter)
 
